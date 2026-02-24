@@ -129,21 +129,15 @@ export async function DELETE(
 
     return Response.json({ success: true })
 
-  } catch (err: any) {
-    console.error("DELETE CRASH:", err)
-    return new Response(JSON.stringify({
-      error: err.message
-    }), { status: 500 })
-  }
-}
-
-    return Response.json({ success: true })
-
   } catch (error: any) {
-    console.error("CATCH DELETE ERROR:", error)
-    return new Response(JSON.stringify({
-      error: 'Internal server error',
-      message: error?.message
-    }), { status: 500 })
+    console.error("DELETE CRASH:", error)
+
+    return new Response(
+      JSON.stringify({
+        error: 'Internal server error',
+        message: error?.message
+      }),
+      { status: 500 }
+    )
   }
 }
