@@ -1,6 +1,8 @@
 import { createClient } from '@supabase/supabase-js'
 import { Database } from '@/types/database'
 
+
+
 export const supabaseAdmin = createClient<Database>(
   process.env.EXPO_PUBLIC_SUPABASE_URL!,
   process.env.EXPO_PUBLIC_SUPABASE_SERVICE_ROLE_KEY!,
@@ -11,3 +13,6 @@ export const supabaseAdmin = createClient<Database>(
     },
   }
 )
+
+console.log("URL:", process.env.EXPO_PUBLIC_SUPABASE_URL)
+console.log("KEY:", process.env.EXPO_PUBLIC_SUPABASE_SERVICE_ROLE_KEY)
