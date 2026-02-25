@@ -136,12 +136,23 @@ export async function DELETE(
 
     const id = params.id
 
+    const authHeader = request.headers.get('Authorization')
+    if (!authHeader?.startsWith('Bearer ')) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 })
+    }
+
+    const { user } = await validateUserFromToken(authHeader)
+    if (!user) {
+      return new Response(JSON.stringify({ error: 'Authentication failed' }), { status: 401 })
+    }
+
     console.log("Deleting ID:", id)
 
     const { error } = await supabaseAdmin
       .from('characters')
       .delete()
       .eq('id', id)
+      .eq('user_id', user.id)
 
     console.log("Delete error:", error)
 
