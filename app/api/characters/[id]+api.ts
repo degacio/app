@@ -17,6 +17,10 @@ function checkSupabaseAdmin() {
 // 🔐 Helper - Validate User Token
 // ===============================
 async function validateUserFromToken(authHeader: string) {
+  if (!supabaseAdmin) {
+    return { user: null, error: new Error('Supabase admin client not available') }
+  }
+
   const token = authHeader.replace('Bearer ', '')
 
   const { data: { user }, error } =
