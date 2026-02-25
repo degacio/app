@@ -1,6 +1,19 @@
 import { supabaseAdmin } from '@/lib/supabaseAdmin'
 
 // ===============================
+// 🔧 Helper - Check Supabase Admin
+// ===============================
+function checkSupabaseAdmin() {
+  if (!supabaseAdmin) {
+    return new Response(JSON.stringify({
+      error: 'Database connection failed',
+      message: 'Supabase admin client is not properly configured'
+    }), { status: 500 })
+  }
+  return null
+}
+
+// ===============================
 // 🔐 Helper - Validate User Token
 // ===============================
 async function validateUserFromToken(authHeader: string) {
@@ -24,6 +37,9 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
+    const adminCheck = checkSupabaseAdmin()
+    if (adminCheck) return adminCheck
+
     const id = params.id
 
     const authHeader = request.headers.get('Authorization')
@@ -65,6 +81,9 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
+    const adminCheck = checkSupabaseAdmin()
+    if (adminCheck) return adminCheck
+
     const id = params.id
     const authHeader = request.headers.get('Authorization')
 
@@ -112,6 +131,9 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
+    const adminCheck = checkSupabaseAdmin()
+    if (adminCheck) return adminCheck
+
     const id = params.id
 
     console.log("Deleting ID:", id)
