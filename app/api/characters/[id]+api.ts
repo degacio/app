@@ -38,17 +38,15 @@ async function validateUserFromToken(authHeader: string) {
 // ===============================
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { id }: { id: string }
 ) {
   try {
     const adminCheck = checkSupabaseAdmin()
     if (adminCheck) return adminCheck
 
-    if (!params?.id) {
+    if (!id) {
       return new Response(JSON.stringify({ error: 'Missing character ID' }), { status: 400 })
     }
-
-    const id = params.id
 
     const authHeader = request.headers.get('Authorization')
     if (!authHeader?.startsWith('Bearer ')) {
@@ -86,17 +84,15 @@ export async function GET(
 // ===============================
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { id }: { id: string }
 ) {
   try {
     const adminCheck = checkSupabaseAdmin()
     if (adminCheck) return adminCheck
 
-    if (!params?.id) {
+    if (!id) {
       return new Response(JSON.stringify({ error: 'Missing character ID' }), { status: 400 })
     }
-
-    const id = params.id
     const authHeader = request.headers.get('Authorization')
 
     if (!authHeader?.startsWith('Bearer ')) {
@@ -140,17 +136,15 @@ export async function PUT(
 // ===============================
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { id }: { id: string }
 ) {
   try {
     const adminCheck = checkSupabaseAdmin()
     if (adminCheck) return adminCheck
 
-    if (!params?.id) {
+    if (!id) {
       return new Response(JSON.stringify({ error: 'Missing character ID' }), { status: 400 })
     }
-
-    const id = params.id
 
     const authHeader = request.headers.get('Authorization')
     if (!authHeader?.startsWith('Bearer ')) {
