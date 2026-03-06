@@ -38,13 +38,12 @@ async function validateUserFromToken(authHeader: string) {
 // ===============================
 export async function GET(
   request: Request,
-  context?: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     const adminCheck = checkSupabaseAdmin()
     if (adminCheck) return adminCheck
 
-    const params = context?.params
     if (!params?.id) {
       return new Response(JSON.stringify({ error: 'Missing character ID' }), { status: 400 })
     }
@@ -87,13 +86,12 @@ export async function GET(
 // ===============================
 export async function PUT(
   request: Request,
-  context?: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     const adminCheck = checkSupabaseAdmin()
     if (adminCheck) return adminCheck
 
-    const params = context?.params
     if (!params?.id) {
       return new Response(JSON.stringify({ error: 'Missing character ID' }), { status: 400 })
     }
@@ -142,13 +140,12 @@ export async function PUT(
 // ===============================
 export async function DELETE(
   request: Request,
-  context?: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
     const adminCheck = checkSupabaseAdmin()
     if (adminCheck) return adminCheck
 
-    const params = context?.params
     if (!params?.id) {
       return new Response(JSON.stringify({ error: 'Missing character ID' }), { status: 400 })
     }
