@@ -156,21 +156,22 @@ export async function DELETE(
       return new Response(JSON.stringify({ error: 'Authentication failed' }), { status: 401 })
     }
 
-    console.log("Deleting ID:", id)
-
-    const { error } = await supabaseAdmin
+    const { error, count } = await supabaseAdmin
       .from('characters')
       .delete()
       .eq('id', id)
       .eq('user_id', user.id)
-
-    console.log("Delete error:", error)
+      .select('id', { count: 'exact' })
 
     if (error) {
       return new Response(JSON.stringify(error), { status: 500 })
     }
 
-    return Response.json({ success: true })
+    if (!count) {
+      return new Response(JSON.stringify({ error: 'Character not found' }), { status: 404 })
+    }
+
+    return Response.json({ success: true, deleted: count })
 
   } catch (error: any) {
     console.error("DELETE CRASH:", error)
