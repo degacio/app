@@ -162,8 +162,9 @@ export async function DELETE(
       .eq('id', id)
       .eq('user_id', user.id)
 
-    if (error && error.code !== 'PGRST116') {
-      return new Response(JSON.stringify(error), { status: 500 })
+    if (error) {
+      console.error('Delete error:', error)
+      return new Response(JSON.stringify({ error: error.message || 'Delete failed' }), { status: 500 })
     }
 
     return Response.json({ success: true })
